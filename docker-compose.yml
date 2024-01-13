@@ -9,21 +9,20 @@ services:
       MYSQL_USER: root
       MYSQL_PASSWORD:
     ports:
-
-"3306:3306"
-aftasbackend:
-  image: if4hd/aftas:v1
-  container_name: aftasbackend
-  restart: on-failure
+      - "3306:3306"
+  aftasbackend:
+    image: if4hd/aftas:v1
+    container_name: aftasbackend
+    restart: on-failure
   
-  ports:
-"8081:8081"
-depends_on:
-mysqldb
-aftasfrontend:
-  image: if4hd/aftas-fe:v1
-  container_name: aftasfront
-  ports:
-"4200:80"
-depends_on:
-aftasbackend
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mysqldb
+  aftasfrontend:
+    image: if4hd/aftas-fe:v1
+    container_name: aftasfront
+    ports:
+      - "4200:80"
+    depends_on:
+      - aftasbackend
